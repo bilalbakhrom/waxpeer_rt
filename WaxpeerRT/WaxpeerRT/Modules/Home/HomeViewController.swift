@@ -62,6 +62,25 @@ final class HomeViewController: BaseViewController {
                 setNavigationBar(title: "Marketplace", subtitle: "\(count) items")
             }
             .store(in: &subscriptions)
+        
+        viewModel
+            .$scrollOffset
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] scrollOffset in
+                guard let self else { return }
+                handleScrollOffset(scrollOffset)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    // MARK: - Actions
+    
+    private func handleScrollOffset(_ offset: CGPoint) {
+        if abs(offset.y) == 0 {
+            Task { await viewModel.onViewEvent(.autoconnect) }
+        } else if abs(offset.y) > 10 {
+            Task { await viewModel.onViewEvent(.disconnectsWithAutoRestore) }
+        }
     }
     
     // MARK: - Layout

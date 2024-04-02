@@ -43,7 +43,7 @@ struct HomeView: View {
     }
     
     private var content: some View {
-        ScrollView {
+        AUIScrollViewWithOffset(scrollOffset: $viewModel.scrollOffset) {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(viewModel.debouncedItems) { item in
                     GameItemView(item: item)
@@ -65,6 +65,7 @@ struct HomeView: View {
                 Spacer()
                 
                 Button {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     Task { await viewModel.onViewEvent(viewModel.isConnected ? .disconnect : .connect) }
                 } label: {
                     Image(systemName: "livephoto")

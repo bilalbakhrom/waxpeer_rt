@@ -13,6 +13,8 @@ import Combine
 final class HomeViewModel: BaseViewModel {
     @Published var debouncedItems: [GameItem] = []
     @Published var isConnected: Bool = false
+    @Published var scrollOffset: CGPoint = .zero
+    @Published var isAutoConnectedEnabled: Bool = false
     
     private let coordinator: HomeCoordinator
     private let socketManager: WaxpeerSocketManager
@@ -42,7 +44,9 @@ final class HomeViewModel: BaseViewModel {
 extension HomeViewModel {
     enum ViewEvent {
         case connect
+        case autoconnect
         case disconnect
+        case disconnectsWithAutoRestore
     }
 }
 
@@ -53,10 +57,21 @@ extension HomeViewModel {
     func onViewEvent(_ event: ViewEvent) async {
         switch event {
         case .connect:
+            guard !isConnected else { return }
             socketManager.connect()
             
+        case .autoconnect:
+            guard isAutoConnectedEnabled else { return }
+            await onViewEvent(.connect)
+            
         case .disconnect:
+            guard isConnected else { return }
+            isAutoConnectedEnabled = false
             socketManager.disconnect()
+            
+        case .disconnectsWithAutoRestore:
+            isAutoConnectedEnabled = true
+            await onViewEvent(.disconnect)
         }
     }
 }

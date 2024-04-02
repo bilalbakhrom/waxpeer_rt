@@ -37,6 +37,11 @@ public struct ConnectionButtonStyle: ButtonStyle {
                     .foregroundColor(.white)
             }
             .contentShape(.rect(cornerRadius: proxy.size.height))
+            .scaleEffect(
+                x: configuration.isPressed ? 0.98 : 1,
+                y: configuration.isPressed ? 0.98 : 1,
+                anchor: .center
+            )
             .animation(.easeInOut, value: isConnected)
         }
     }
