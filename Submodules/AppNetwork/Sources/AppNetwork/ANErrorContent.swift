@@ -42,7 +42,7 @@ extension ANErrorContent {
     /// It prioritizes the general error message (`message`) and falls back to detailed
     /// error message (`details?.errorMessage`). If both are unavailable, a default message
     /// "An unexpected error occurred." is provided.
-    public var errortDescription: String {
+    public var errorDescription: String {
         if let message = message {
             return message
         } else {

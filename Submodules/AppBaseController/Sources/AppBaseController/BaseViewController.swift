@@ -151,7 +151,7 @@ extension BaseViewController {
         
         let alertController = UIAlertController(
             title: content.errorTitle,
-            message: content.errortDescription,
+            message: content.errorDescription,
             preferredStyle: .alert
         )
         
