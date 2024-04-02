@@ -7,15 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D588CFF62BBC5FF0005AF9E7 /* AppUIKit in Resources */ = {isa = PBXBuildFile; fileRef = D588CFF52BBC5FF0005AF9E7 /* AppUIKit */; };
+		D588CFF82BBC6039005AF9E7 /* AppUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = D588CFF72BBC6039005AF9E7 /* AppUIKit */; };
 		D5A326B52BBB605300EB6979 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326B42BBB605300EB6979 /* AppDelegate.swift */; };
 		D5A326B72BBB605300EB6979 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326B62BBB605300EB6979 /* SceneDelegate.swift */; };
 		D5A326BE2BBB605700EB6979 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A326BD2BBB605700EB6979 /* Assets.xcassets */; };
 		D5A326C12BBB605700EB6979 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5A326BF2BBB605700EB6979 /* LaunchScreen.storyboard */; };
 		D5A326D22BBB62B700EB6979 /* AppNetwork in Resources */ = {isa = PBXBuildFile; fileRef = D5A326D12BBB62B700EB6979 /* AppNetwork */; };
 		D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = D5A326D42BBB6D5400EB6979 /* AppNetwork */; };
+		D5A326DA2BBC2C6100EB6979 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326D92BBC2C6100EB6979 /* HomeViewController.swift */; };
+		D5A326DC2BBC2C6700EB6979 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DB2BBC2C6700EB6979 /* HomeView.swift */; };
+		D5A326DE2BBC2C6C00EB6979 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */; };
+		D5A326E02BBC2C7800EB6979 /* HomeDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */; };
+		D5A326E22BBC2D1E00EB6979 /* AppBaseController in Resources */ = {isa = PBXBuildFile; fileRef = D5A326E12BBC2D1E00EB6979 /* AppBaseController */; };
+		D5A326E42BBC306800EB6979 /* AppBaseController in Frameworks */ = {isa = PBXBuildFile; productRef = D5A326E32BBC306800EB6979 /* AppBaseController */; };
+		D5A326E62BBC30B000EB6979 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326E52BBC30B000EB6979 /* HomeCoordinator.swift */; };
+		D5A326E92BBC409700EB6979 /* GridItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326E82BBC409700EB6979 /* GridItemView.swift */; };
+		D5A326EB2BBC4C2600EB6979 /* AppColors in Resources */ = {isa = PBXBuildFile; fileRef = D5A326EA2BBC4C2600EB6979 /* AppColors */; };
+		D5A326ED2BBC4C2F00EB6979 /* AppColors in Frameworks */ = {isa = PBXBuildFile; productRef = D5A326EC2BBC4C2F00EB6979 /* AppColors */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D588CFF52BBC5FF0005AF9E7 /* AppUIKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppUIKit; sourceTree = "<group>"; };
 		D5A326B12BBB605300EB6979 /* WaxpeerRT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaxpeerRT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5A326B42BBB605300EB6979 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5A326B62BBB605300EB6979 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -23,6 +36,14 @@
 		D5A326C02BBB605700EB6979 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5A326C22BBB605700EB6979 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5A326D12BBB62B700EB6979 /* AppNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppNetwork; sourceTree = "<group>"; };
+		D5A326D92BBC2C6100EB6979 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D5A326DB2BBC2C6700EB6979 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDependency.swift; sourceTree = "<group>"; };
+		D5A326E12BBC2D1E00EB6979 /* AppBaseController */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppBaseController; sourceTree = "<group>"; };
+		D5A326E52BBC30B000EB6979 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		D5A326E82BBC409700EB6979 /* GridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridItemView.swift; sourceTree = "<group>"; };
+		D5A326EA2BBC4C2600EB6979 /* AppColors */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppColors; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +51,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A326ED2BBC4C2F00EB6979 /* AppColors in Frameworks */,
 				D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */,
+				D5A326E42BBC306800EB6979 /* AppBaseController in Frameworks */,
+				D588CFF82BBC6039005AF9E7 /* AppUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +126,7 @@
 		D5A326CF2BBB61DC00EB6979 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D5A326D82BBC2C5800EB6979 /* Home */,
 				D5A326C92BBB60FB00EB6979 /* Launch */,
 			);
 			path = Modules;
@@ -110,7 +135,10 @@
 		D5A326D02BBB62B700EB6979 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D5A326EA2BBC4C2600EB6979 /* AppColors */,
 				D5A326D12BBB62B700EB6979 /* AppNetwork */,
+				D5A326E12BBC2D1E00EB6979 /* AppBaseController */,
+				D588CFF52BBC5FF0005AF9E7 /* AppUIKit */,
 			);
 			name = Submodules;
 			path = ../Submodules;
@@ -121,6 +149,27 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5A326D82BBC2C5800EB6979 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D5A326E72BBC408B00EB6979 /* Views */,
+				D5A326D92BBC2C6100EB6979 /* HomeViewController.swift */,
+				D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */,
+				D5A326E52BBC30B000EB6979 /* HomeCoordinator.swift */,
+				D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D5A326E72BBC408B00EB6979 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D5A326DB2BBC2C6700EB6979 /* HomeView.swift */,
+				D5A326E82BBC409700EB6979 /* GridItemView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +190,9 @@
 			name = WaxpeerRT;
 			packageProductDependencies = (
 				D5A326D42BBB6D5400EB6979 /* AppNetwork */,
+				D5A326E32BBC306800EB6979 /* AppBaseController */,
+				D5A326EC2BBC4C2F00EB6979 /* AppColors */,
+				D588CFF72BBC6039005AF9E7 /* AppUIKit */,
 			);
 			productName = WaxpeerRT;
 			productReference = D5A326B12BBB605300EB6979 /* WaxpeerRT.app */;
@@ -187,7 +239,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A326D22BBB62B700EB6979 /* AppNetwork in Resources */,
+				D588CFF62BBC5FF0005AF9E7 /* AppUIKit in Resources */,
+				D5A326E22BBC2D1E00EB6979 /* AppBaseController in Resources */,
 				D5A326C12BBB605700EB6979 /* LaunchScreen.storyboard in Resources */,
+				D5A326EB2BBC4C2600EB6979 /* AppColors in Resources */,
 				D5A326BE2BBB605700EB6979 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,7 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A326B52BBB605300EB6979 /* AppDelegate.swift in Sources */,
+				D5A326DC2BBC2C6700EB6979 /* HomeView.swift in Sources */,
 				D5A326B72BBB605300EB6979 /* SceneDelegate.swift in Sources */,
+				D5A326DE2BBC2C6C00EB6979 /* HomeViewModel.swift in Sources */,
+				D5A326DA2BBC2C6100EB6979 /* HomeViewController.swift in Sources */,
+				D5A326E92BBC409700EB6979 /* GridItemView.swift in Sources */,
+				D5A326E62BBC30B000EB6979 /* HomeCoordinator.swift in Sources */,
+				D5A326E02BBC2C7800EB6979 /* HomeDependency.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,9 +482,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D588CFF72BBC6039005AF9E7 /* AppUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppUIKit;
+		};
 		D5A326D42BBB6D5400EB6979 /* AppNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppNetwork;
+		};
+		D5A326E32BBC306800EB6979 /* AppBaseController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppBaseController;
+		};
+		D5A326EC2BBC4C2F00EB6979 /* AppColors */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppColors;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

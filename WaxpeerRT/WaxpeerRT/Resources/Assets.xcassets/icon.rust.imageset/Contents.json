@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icon.rust.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
