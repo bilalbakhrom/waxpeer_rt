@@ -52,7 +52,6 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     }
     
     public func disconnect() {
-        socket.removeAllHandlers()
         socket.disconnect()
     }
     
@@ -102,6 +101,7 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     /// - Parameter events: The item events to register for.
     public func register(for events: [WaxpeerGameItemEvent]) {
         socket.removeAllHandlers()
+        addHandlers()
         itemEvents = events
         
         events.forEach { event in
@@ -138,6 +138,7 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     
     private func handleDisconnect(_ data: [Any], _ ack: SocketAckEmitter) async {
         isConnected = false
+        socket.removeAllHandlers()
         await delegate?.waxpeerSocketDidDisconnect(self)
     }
     
