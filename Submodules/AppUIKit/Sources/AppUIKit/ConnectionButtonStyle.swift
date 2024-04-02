@@ -26,6 +26,8 @@ public struct ConnectionButtonStyle: ButtonStyle {
                     RoundedRectangle(cornerRadius: proxy.size.height)
                         .fill(Color.green)
                         .transition(.opacity.combined(with: .scale))
+                    
+                    AUICircularPulseAnimation(color: activeColor)
                 } else {
                     RoundedRectangle(cornerRadius: proxy.size.height)
                         .fill(Color.gray)
@@ -34,7 +36,7 @@ public struct ConnectionButtonStyle: ButtonStyle {
                 configuration.label
                     .foregroundColor(.white)
             }
-            .clipShape(.rect(cornerRadius: proxy.size.height))
+            .contentShape(.rect(cornerRadius: proxy.size.height))
             .animation(.easeInOut, value: isConnected)
         }
     }
