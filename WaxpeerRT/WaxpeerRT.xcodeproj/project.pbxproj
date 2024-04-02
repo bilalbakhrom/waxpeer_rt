@@ -17,6 +17,8 @@
 		D5A326DC2BBC2C6700EB6979 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DB2BBC2C6700EB6979 /* HomeView.swift */; };
 		D5A326DE2BBC2C6C00EB6979 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */; };
 		D5A326E02BBC2C7800EB6979 /* HomeDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */; };
+		D5A326E22BBC2D1E00EB6979 /* AppBaseController in Resources */ = {isa = PBXBuildFile; fileRef = D5A326E12BBC2D1E00EB6979 /* AppBaseController */; };
+		D5A326E42BBC306800EB6979 /* AppBaseController in Frameworks */ = {isa = PBXBuildFile; productRef = D5A326E32BBC306800EB6979 /* AppBaseController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,7 @@
 		D5A326DB2BBC2C6700EB6979 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDependency.swift; sourceTree = "<group>"; };
+		D5A326E12BBC2D1E00EB6979 /* AppBaseController */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppBaseController; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */,
+				D5A326E42BBC306800EB6979 /* AppBaseController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				D5A326D12BBB62B700EB6979 /* AppNetwork */,
+				D5A326E12BBC2D1E00EB6979 /* AppBaseController */,
 			);
 			name = Submodules;
 			path = ../Submodules;
@@ -161,6 +166,7 @@
 			name = WaxpeerRT;
 			packageProductDependencies = (
 				D5A326D42BBB6D5400EB6979 /* AppNetwork */,
+				D5A326E32BBC306800EB6979 /* AppBaseController */,
 			);
 			productName = WaxpeerRT;
 			productReference = D5A326B12BBB605300EB6979 /* WaxpeerRT.app */;
@@ -207,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A326D22BBB62B700EB6979 /* AppNetwork in Resources */,
+				D5A326E22BBC2D1E00EB6979 /* AppBaseController in Resources */,
 				D5A326C12BBB605700EB6979 /* LaunchScreen.storyboard in Resources */,
 				D5A326BE2BBB605700EB6979 /* Assets.xcassets in Resources */,
 			);
@@ -448,6 +455,10 @@
 		D5A326D42BBB6D5400EB6979 /* AppNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppNetwork;
+		};
+		D5A326E32BBC306800EB6979 /* AppBaseController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppBaseController;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
