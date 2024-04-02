@@ -13,6 +13,10 @@
 		D5A326C12BBB605700EB6979 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5A326BF2BBB605700EB6979 /* LaunchScreen.storyboard */; };
 		D5A326D22BBB62B700EB6979 /* AppNetwork in Resources */ = {isa = PBXBuildFile; fileRef = D5A326D12BBB62B700EB6979 /* AppNetwork */; };
 		D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = D5A326D42BBB6D5400EB6979 /* AppNetwork */; };
+		D5A326DA2BBC2C6100EB6979 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326D92BBC2C6100EB6979 /* HomeViewController.swift */; };
+		D5A326DC2BBC2C6700EB6979 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DB2BBC2C6700EB6979 /* HomeView.swift */; };
+		D5A326DE2BBC2C6C00EB6979 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */; };
+		D5A326E02BBC2C7800EB6979 /* HomeDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		D5A326C02BBB605700EB6979 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5A326C22BBB605700EB6979 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5A326D12BBB62B700EB6979 /* AppNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppNetwork; sourceTree = "<group>"; };
+		D5A326D92BBC2C6100EB6979 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D5A326DB2BBC2C6700EB6979 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDependency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +110,7 @@
 		D5A326CF2BBB61DC00EB6979 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D5A326D82BBC2C5800EB6979 /* Home */,
 				D5A326C92BBB60FB00EB6979 /* Launch */,
 			);
 			path = Modules;
@@ -121,6 +130,17 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5A326D82BBC2C5800EB6979 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D5A326D92BBC2C6100EB6979 /* HomeViewController.swift */,
+				D5A326DB2BBC2C6700EB6979 /* HomeView.swift */,
+				D5A326DD2BBC2C6C00EB6979 /* HomeViewModel.swift */,
+				D5A326DF2BBC2C7800EB6979 /* HomeDependency.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +220,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A326B52BBB605300EB6979 /* AppDelegate.swift in Sources */,
+				D5A326DC2BBC2C6700EB6979 /* HomeView.swift in Sources */,
 				D5A326B72BBB605300EB6979 /* SceneDelegate.swift in Sources */,
+				D5A326DE2BBC2C6C00EB6979 /* HomeViewModel.swift in Sources */,
+				D5A326DA2BBC2C6100EB6979 /* HomeViewController.swift in Sources */,
+				D5A326E02BBC2C7800EB6979 /* HomeDependency.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
