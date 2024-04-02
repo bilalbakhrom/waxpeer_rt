@@ -86,7 +86,7 @@ final class HomeViewController: BaseViewController {
     
     private func handleScrollOffset(_ offset: CGPoint) {
         if abs(offset.y) == 0 {
-            Task { await viewModel.onViewEvent(.autoconnect) }
+            Task { await viewModel.onViewEvent(.autoConnect) }
         } else if offset.y < -10 {
             Task { await viewModel.onViewEvent(.endConnectionWithAutoRestore) }
         }

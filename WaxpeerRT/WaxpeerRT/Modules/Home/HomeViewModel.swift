@@ -11,14 +11,33 @@ import AppNetwork
 import Combine
 
 final class HomeViewModel: BaseViewModel {
+    // MARK: - Published Properties
+    
+    /// Debounced list of game items.
     @Published var debouncedItems: [GameItem] = []
+    
+    /// Indicates whether the device is currently connected to the network.
     @Published var isConnected: Bool = false
+    
+    /// The current scroll offset of the content.
     @Published var scrollOffset: CGPoint = .zero
+    
+    /// Indicates whether auto connect feature is enabled.
     @Published var isAutoConnectEnabled: Bool = false
+    
+    /// Indicates the network reachability status.
     @Published var isNetworkReachable: Bool = true
+    
+    /// Indicates whether to show status change.
     @Published var showsStatusChange: Bool = false
+    
+    /// Indicates whether to show the no connection alert.
     @Published var showsNoConnectionAlert: Bool = false
+    
+    /// The current status of socket connection.
     @Published var status: SocketConnectionStatus = .notConnected
+    
+    // MARK: - Private Properties
     
     private let coordinator: HomeCoordinator
     private let socketManager: WaxpeerSocketManager
@@ -39,6 +58,8 @@ final class HomeViewModel: BaseViewModel {
         scrollToTopPublisherSubject.eraseToAnyPublisher()
     }
     
+    // MARK: - Initialization
+    
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
         self.socketManager = coordinator.deps.socketManager
@@ -54,10 +75,11 @@ final class HomeViewModel: BaseViewModel {
 // MARK: - INTERNAL MODELS
 
 extension HomeViewModel {
+    /// Enum representing view events.
     enum ViewEvent {
         case connect
         case disconnect
-        case autoconnect
+        case autoConnect
         case endConnectionWithAutoRestore
         case scrollContentToTop
         case showNoConnection
@@ -68,6 +90,7 @@ extension HomeViewModel {
 
 @MainActor
 extension HomeViewModel {
+    /// Handles view events asynchronously.
     func onViewEvent(_ event: ViewEvent) async {
         switch event {
         case .connect:
@@ -76,7 +99,7 @@ extension HomeViewModel {
         case .disconnect:
             handleDisconnect()
             
-        case .autoconnect:
+        case .autoConnect:
             handleAutoConnect()
             
         case .endConnectionWithAutoRestore:
@@ -89,6 +112,8 @@ extension HomeViewModel {
             showsNoConnectionAlert = true
         }
     }
+    
+    // MARK: - Private Methods
     
     private func handleConnect() {
         guard !isConnected else { return }
@@ -132,6 +157,8 @@ extension HomeViewModel {
     }
 }
 
+// MARK: - WaxpeerSocketDelegate
+
 @MainActor
 extension HomeViewModel: WaxpeerSocketDelegate {
     func waxpeerSocketDidConnect(_ socket: WaxpeerSocketManager) async {
@@ -159,13 +186,15 @@ extension HomeViewModel: WaxpeerSocketDelegate {
         }
     }
     
+    // MARK: - Private Item Handling
+    
     private func appendItem(_ item: GameItem) {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
+            guard let self = self else { return }
                         
-            semaphore.wait()
-            items.append(item)
-            semaphore.signal()
+            self.semaphore.wait()
+            self.items.append(item)
+            self.semaphore.signal()
         }
     }
     
@@ -173,36 +202,36 @@ extension HomeViewModel: WaxpeerSocketDelegate {
         guard let index = items.firstIndex(of: item), index < items.count else { return }
                     
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
-            guard let index = items.firstIndex(of: item), index < items.count else { return }
+            guard let self = self else { return }
                         
-            semaphore.wait()
-            items.remove(at: index)
-            semaphore.signal()
+            self.semaphore.wait()
+            self.items.remove(at: index)
+            self.semaphore.signal()
         }
     }
     
     private func updateItem(_ item: GameItem) {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
+            guard let self = self else { return }
             
-            semaphore.wait()
+            self.semaphore.wait()
             
-            if let index = items.firstIndex(of: item), index < items.count {
-                items[index] = item
+            if let index = self.items.firstIndex(of: item), index < self.items.count {
+                self.items[index] = item
             } else {
-                items.append(item)
+                self.items.append(item)
             }
             
-            semaphore.signal()
+            self.semaphore.signal()
         }
     }
 }
 
+// MARK: - NetworkReachabilityMonitorDelegate
+
 @MainActor
 extension HomeViewModel: NetworkReachabilityMonitorDelegate {
     func networkReachabilityMonitorDidUpdateStatus(_ monitor: NetworkReachabilityMonitor, isReachable: Bool) async {
-        print("isReachable: \(isReachable)")
         isNetworkReachable = isReachable
     }
 }
