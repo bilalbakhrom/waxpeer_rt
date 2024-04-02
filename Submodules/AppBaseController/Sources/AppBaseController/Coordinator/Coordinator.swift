@@ -20,6 +20,6 @@ public protocol Coordinator: AnyObject {
 
 extension Coordinator {
     public func coordinate(to coordinator: Coordinator, animated: Bool = true) {
-        coordinator.start(animated: true)
+        coordinator.start(animated: animated)
     }
 }

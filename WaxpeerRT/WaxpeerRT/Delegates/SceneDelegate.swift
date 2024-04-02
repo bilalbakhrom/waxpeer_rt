@@ -13,10 +13,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene),
+              let socketManager = WaxpeerSocketManager(env: .waxpeer)
+        else { return }
         
-        let socketManager = WaxpeerSocketManager(env: .waxpeer)
-        let deps = HomeDependency(socketManager: socketManager!)
+        
+        let deps = HomeDependency(socketManager: socketManager)
         let navController = BaseNavigationController()
         let coordinator = HomeCoordinator(deps, navigationController: navController)
         coordinator.start(animated: true)

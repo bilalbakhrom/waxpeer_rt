@@ -46,7 +46,7 @@ extension UIColor {
 extension UIColor {
     private static func fetchColor(_ name: String) -> UIColor {
         guard let color = UIColor(named: name, in: .module, compatibleWith: nil) else {
-            fatalError()
+            fatalError("Failed to load color named \(name)")
         }
         
         return color
