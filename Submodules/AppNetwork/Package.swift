@@ -20,7 +20,8 @@ let package = Package(
             name: "AppNetwork",
             dependencies: [
                 .product(name: "SocketIO", package: "socket.io-client-swift")
-            ]
+            ],
+            resources: [.process("Config")]
         ),
         .testTarget(
             name: "AppNetworkTests",

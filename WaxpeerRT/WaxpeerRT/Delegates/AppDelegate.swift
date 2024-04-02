@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        manager = WaxpeerSocketManager(env: .waxpeer, itemEvents: [.update])
+        manager = WaxpeerSocketManager(env: .waxpeer)
         manager?.delegate = self
         
         if let manager {
@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             print("Something went wrong")
         }
-        
         
         return true
     }
@@ -36,11 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: WaxpeerSocketDelegate {
     func waxpeerSocketDidConnect(_ socket: AppNetwork.WaxpeerSocketManager) async {
-        
+        print("Connected")
     }
     
     func waxpeerSocketDidDisconnect(_ socket: AppNetwork.WaxpeerSocketManager) async {
-        
+        print("Disconnected")
     }
     
     func waxpeerSocket(_ socket: AppNetwork.WaxpeerSocketManager, didReceiveGameItem item: GameItem, event: WaxpeerGameItemEvent) async {

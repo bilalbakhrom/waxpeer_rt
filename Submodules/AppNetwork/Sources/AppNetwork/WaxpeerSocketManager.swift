@@ -14,7 +14,6 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     private let socket: SocketIOClient
     private var itemEvents: [WaxpeerGameItemEvent]
     private var gameEvents: [WaxpeerGameEvent]
-    private let apiKey = "f414c0250af5745dfa14acd5b22e5361ebf810f00e9c3a77d307270b75d8daed"
     
     /// The delegate for receiving Waxpeer socket events.
     public weak var delegate: WaxpeerSocketDelegate?
@@ -32,9 +31,10 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     ) {
         guard let socketURL = try? env.makeURL() else { return nil }
                 
+        let authKey = Bundle.module.socketKey ?? ""
         let socketManager = SocketManager(
             socketURL: socketURL,
-            config: env.makeConfig(with: ["Authorization": apiKey])
+            config: env.makeConfig(with: ["Authorization": authKey])
         )
         
         self.socket = socketManager.defaultSocket
@@ -121,8 +121,8 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     // MARK: - Actions
     
     private func handleConnect(_ data: [Any], _ ack: SocketAckEmitter) async {
-        subscribe(to: gameEvents)
         register(for: itemEvents)
+        subscribe(to: gameEvents)
         await delegate?.waxpeerSocketDidConnect(self)
     }
     
