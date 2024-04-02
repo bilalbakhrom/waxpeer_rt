@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AppColors
+import AppUIKit
 
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
@@ -64,17 +65,12 @@ struct HomeView: View {
                 Button {
                     Task { await viewModel.onViewEvent(viewModel.isConnected ? .disconnect : .connect) }
                 } label: {
-                    ZStack {
-                        Rectangle()
-                            .fill(viewModel.isConnected ? Color.green : Color.gray)
-                        
-                        Image(systemName: "livephoto")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                    }
-                    .frame(width: 48, height: 48)
-                    .clipShape(.rect(cornerRadius: 48))
+                    Image(systemName: "livephoto")
+                        .font(.system(size: 40))
                 }
+                .frame(width: 48, height: 48)
+                .buttonStyle(ConnectionButtonStyle(activeColor: .green, deactiveColor: .gray))
+                .connected(viewModel.isConnected)
             }
         }
         .padding(16)

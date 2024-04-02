@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D588CFF62BBC5FF0005AF9E7 /* AppUIKit in Resources */ = {isa = PBXBuildFile; fileRef = D588CFF52BBC5FF0005AF9E7 /* AppUIKit */; };
+		D588CFF82BBC6039005AF9E7 /* AppUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = D588CFF72BBC6039005AF9E7 /* AppUIKit */; };
 		D5A326B52BBB605300EB6979 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326B42BBB605300EB6979 /* AppDelegate.swift */; };
 		D5A326B72BBB605300EB6979 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A326B62BBB605300EB6979 /* SceneDelegate.swift */; };
 		D5A326BE2BBB605700EB6979 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A326BD2BBB605700EB6979 /* Assets.xcassets */; };
@@ -26,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D588CFF52BBC5FF0005AF9E7 /* AppUIKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppUIKit; sourceTree = "<group>"; };
 		D5A326B12BBB605300EB6979 /* WaxpeerRT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaxpeerRT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5A326B42BBB605300EB6979 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5A326B62BBB605300EB6979 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 				D5A326ED2BBC4C2F00EB6979 /* AppColors in Frameworks */,
 				D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */,
 				D5A326E42BBC306800EB6979 /* AppBaseController in Frameworks */,
+				D588CFF82BBC6039005AF9E7 /* AppUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +138,7 @@
 				D5A326EA2BBC4C2600EB6979 /* AppColors */,
 				D5A326D12BBB62B700EB6979 /* AppNetwork */,
 				D5A326E12BBC2D1E00EB6979 /* AppBaseController */,
+				D588CFF52BBC5FF0005AF9E7 /* AppUIKit */,
 			);
 			name = Submodules;
 			path = ../Submodules;
@@ -187,6 +192,7 @@
 				D5A326D42BBB6D5400EB6979 /* AppNetwork */,
 				D5A326E32BBC306800EB6979 /* AppBaseController */,
 				D5A326EC2BBC4C2F00EB6979 /* AppColors */,
+				D588CFF72BBC6039005AF9E7 /* AppUIKit */,
 			);
 			productName = WaxpeerRT;
 			productReference = D5A326B12BBB605300EB6979 /* WaxpeerRT.app */;
@@ -233,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A326D22BBB62B700EB6979 /* AppNetwork in Resources */,
+				D588CFF62BBC5FF0005AF9E7 /* AppUIKit in Resources */,
 				D5A326E22BBC2D1E00EB6979 /* AppBaseController in Resources */,
 				D5A326C12BBB605700EB6979 /* LaunchScreen.storyboard in Resources */,
 				D5A326EB2BBC4C2600EB6979 /* AppColors in Resources */,
@@ -475,6 +482,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D588CFF72BBC6039005AF9E7 /* AppUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppUIKit;
+		};
 		D5A326D42BBB6D5400EB6979 /* AppNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppNetwork;

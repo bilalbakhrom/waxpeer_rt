@@ -27,7 +27,7 @@ struct GameItemView: View {
                     Text(item.game.uppercased())
                         .font(.system(size: 14, weight: .regular))
                         .foregroundStyle(Color.modulePrimaryLabel)
-                        .opacity(0.8)
+                        .opacity(0.9)
                 }
                 
                 Text(item.name)
