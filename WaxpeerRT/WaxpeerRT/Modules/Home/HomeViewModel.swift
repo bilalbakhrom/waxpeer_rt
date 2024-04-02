@@ -11,6 +11,7 @@ import AppNetwork
 
 final class HomeViewModel: BaseViewModel {
     @Published var items: [GameItem] = []
+    @Published var debouncedItems: [GameItem] = []
     @Published var isConnected: Bool = false
     
     private let coordinator: HomeCoordinator

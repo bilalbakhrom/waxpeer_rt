@@ -84,14 +84,28 @@ extension BaseViewController {
     }
     
     /// Sets the navigation bar title with the given string.
-    public func setNavigationBar(title: String?) {
+    public func setNavigationBar(title: String, subtitle: String? = nil) {
         let label = UILabel()
         label.textColor = .label
         label.text = title
         label.font = .systemFont(ofSize: 18, weight: .medium)
         label.sizeToFit()
         
-        navigationItem.titleView = label
+        if let subtitle {
+            let subtitleLabel = UILabel()
+            subtitleLabel.textColor = .secondaryLabel
+            subtitleLabel.text = subtitle
+            subtitleLabel.font = .systemFont(ofSize: 14, weight: .medium)
+            subtitleLabel.sizeToFit()
+            
+            let vStack = UIStackView(arrangedSubviews: [label, subtitleLabel])
+            vStack.axis = .vertical
+            vStack.alignment = .center
+                        
+            navigationItem.titleView = vStack
+        } else {
+            navigationItem.titleView = label
+        }
     }
     
     /// Shows the navigation bar.

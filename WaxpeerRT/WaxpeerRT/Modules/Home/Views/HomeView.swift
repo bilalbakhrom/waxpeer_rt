@@ -28,7 +28,7 @@ struct HomeView: View {
             Rectangle()
                 .fill(Color.modulePrimaryBackground)
             
-            if viewModel.items.isEmpty {
+            if viewModel.debouncedItems.isEmpty {
                 placeholder
             } else {
                 content
@@ -45,7 +45,7 @@ struct HomeView: View {
     private var content: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(viewModel.items) { item in
+                ForEach(viewModel.debouncedItems) { item in
                     GameItemView(item: item)
                         .frame(height: 180)
                         .id(item.id)

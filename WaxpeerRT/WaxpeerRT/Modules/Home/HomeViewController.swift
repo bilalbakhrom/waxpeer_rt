@@ -35,7 +35,7 @@ final class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .modulePrimaryBackground
-        setNavigationBar(title: "Game items")
+        setNavigationBar(title: "Marketplace")
         bind()
         setupSubviews()
     }
@@ -48,6 +48,20 @@ final class HomeViewController: BaseViewController {
     // MARK: - Binding
     
     override func bind() {
+        viewModel
+            .$items
+            .debounce(for: .seconds(0.45), scheduler: RunLoop.main)
+            .assign(to: &viewModel.$debouncedItems)
+        
+        viewModel
+            .$debouncedItems
+            .receive(on: RunLoop.main)
+            .sink { [weak self] items in
+                guard let self else { return }
+                let count = items.count
+                setNavigationBar(title: "Marketplace", subtitle: "\(count) items")
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: - Layout
