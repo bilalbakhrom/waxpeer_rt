@@ -8,18 +8,6 @@
 import Foundation
 import SocketIO
 
-/// Protocol defining the delegate methods for Waxpeer socket events.
-public protocol WaxpeerSocketDelegate: AnyObject {
-    /// Called when the Waxpeer socket connects successfully.
-    func waxpeerSocketDidConnect(_ socket: WaxpeerSocketManager) async
-    
-    /// Called when the Waxpeer socket disconnects.
-    func waxpeerSocketDidDisconnect(_ socket: WaxpeerSocketManager) async
-    
-    /// Called when the Waxpeer socket receives a game item event.
-    func waxpeerSocket(_ socket: WaxpeerSocketManager, didReceiveGameItem item: GameItem, event: WaxpeerGameItemEvent) async
-}
-
 /// A class managing WebSocket connections for the Waxpeer platform.
 public final class WaxpeerSocketManager: WebSocketProtocol {
     private let manager: SocketManager
@@ -73,10 +61,18 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     ///
     /// - Parameter events: The game events to subscribe to.
     public func subscribe(to events: [WaxpeerGameEvent]) {
+        // Unsubscribe from old events.
         let eventsToUnsubscribe = gameEvents.filter { !events.contains($0) }
         unsubscribe(from: eventsToUnsubscribe)
+        
+        // Prevent duplicate by getting a new events only.
+        let newEvents = events.filter { !gameEvents.contains($0) }
+        
+        // Update events.
         gameEvents = events
-        events.forEach { socket.emit("subscribe", ["name": $0.rawValue]) }
+        
+        // Subscribe to new events.
+        newEvents.forEach { socket.emit("subscribe", ["name": $0.rawValue]) }
     }
     
     /// Unsubscribes from the specified game events.
