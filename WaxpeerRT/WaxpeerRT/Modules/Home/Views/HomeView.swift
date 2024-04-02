@@ -44,6 +44,12 @@ struct HomeView: View {
                         
             statusBanner
         }
+        .alert(isPresented: $viewModel.showsNoConnectionAlert, content: {
+            Alert(
+                title: Text("No connection"),
+                message: Text("Check you internet connection and try again.")
+            )
+        })
         .animation(.easeInOut, value: viewModel.showsStatusChange)
         .ignoresSafeArea(edges: .bottom)
         .onChange(of: viewModel.status) { status in
