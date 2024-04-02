@@ -31,7 +31,7 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
         itemEvents: [WaxpeerGameItemEvent] = WaxpeerGameItemEvent.allCases
     ) {
         guard let socketURL = try? env.makeURL() else { return nil }
-                
+        
         let authKey = Bundle.module.socketKey ?? ""
         let socketManager = SocketManager(
             socketURL: socketURL,
@@ -142,6 +142,14 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
         await delegate?.waxpeerSocketDidDisconnect(self)
     }
     
+    private func handleStatusChange(_ data: [Any], _ ack: SocketAckEmitter) async {
+        guard let socketStatus = data.first as? SocketIOStatus,
+              let status = SocketConnectionStatus(socketStatus)
+        else { return }
+        
+        await delegate?.waxpeeerSocket(self, didUpdateStatus: status)
+    }
+    
     private func handleItemEvent(_ event: WaxpeerGameItemEvent, data: [Any], ack: SocketAckEmitter) async {
         do {
             var item = try decode(GameItem.self, from: data)
@@ -163,6 +171,11 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
         socket.on(clientEvent: .disconnect) { [weak self] data, ack in
             guard let self else { return }
             Task { await self.handleDisconnect(data, ack) }
+        }
+        
+        socket.on(clientEvent: .statusChange) { [weak self] data, ack in
+            guard let self else { return }
+            Task { await self.handleStatusChange(data, ack) }
         }
     }
     

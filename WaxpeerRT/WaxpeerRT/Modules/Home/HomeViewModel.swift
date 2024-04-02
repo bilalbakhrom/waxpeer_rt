@@ -15,6 +15,8 @@ final class HomeViewModel: BaseViewModel {
     @Published var isConnected: Bool = false
     @Published var scrollOffset: CGPoint = .zero
     @Published var isAutoConnectEnabled: Bool = false
+    @Published var status: SocketConnectionStatus = .notConnected
+    @Published var showsStatusChange: Bool = false
     
     private let coordinator: HomeCoordinator
     private let socketManager: WaxpeerSocketManager
@@ -63,20 +65,24 @@ extension HomeViewModel {
         switch event {
         case .connect:
             guard !isConnected else { return }
+            showsStatusChange = true
             socketManager.connect()
             
         case .disconnect:
             guard isConnected else { return }
+            showsStatusChange = true
             isAutoConnectEnabled = false
             socketManager.disconnect()
             
         case .autoconnect:
             guard isAutoConnectEnabled else { return }
+            showsStatusChange = true
             isAutoConnectEnabled = false
             socketManager.connect()
             
         case .endConnectionWithAutoRestore:
             guard isConnected else { return }
+            showsStatusChange = true
             isAutoConnectEnabled = true
             socketManager.disconnect()
             
@@ -94,6 +100,10 @@ extension HomeViewModel: WaxpeerSocketDelegate {
     
     func waxpeerSocketDidDisconnect(_ socket: WaxpeerSocketManager) async {
         isConnected = false
+    }
+    
+    func waxpeeerSocket(_ socket: WaxpeerSocketManager, didUpdateStatus status: SocketConnectionStatus) async {
+        self.status = status
     }
     
     func waxpeerSocket(_ socket: WaxpeerSocketManager, didReceiveGameItem item: GameItem, event: WaxpeerGameItemEvent) async {

@@ -41,8 +41,18 @@ struct HomeView: View {
             connectionButton
             
             gradientView
+                        
+            statusBanner
         }
+        .animation(.easeInOut, value: viewModel.showsStatusChange)
         .ignoresSafeArea(edges: .bottom)
+        .onChange(of: viewModel.status) { status in
+            guard status != .connecting else { return }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                viewModel.showsStatusChange = false
+            }
+        }
     }
     
     private var placeholder: some View {
@@ -130,6 +140,24 @@ struct HomeView: View {
             )
             .ignoresSafeArea()
             .frame(height: 60)
+        }
+    }
+    
+    private var statusBanner: some View {
+        VStack(spacing: .zero) {
+            Spacer()
+            
+            if viewModel.showsStatusChange {
+                Text(viewModel.status.description)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(Color.modulePrimaryBackground)
+                    .padding(8)
+                    .background(Color.yellow)
+                    .clipShape(.rect(cornerRadius: 4))
+                    .padding(.bottom, 60)
+                    .opacity(0.9)
+                    .transition(.move(edge: .bottom).combined(with: .scale))
+            }
         }
     }
 }
