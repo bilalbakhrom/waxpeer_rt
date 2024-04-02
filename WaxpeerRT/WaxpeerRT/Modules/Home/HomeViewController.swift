@@ -50,7 +50,7 @@ final class HomeViewController: BaseViewController {
     override func bind() {
         viewModel
             .itemPublisher
-            .debounce(for: .seconds(0.001), scheduler: RunLoop.main)
+            .debounce(for: .seconds(0.0001), scheduler: RunLoop.main)
             .assign(to: &viewModel.$debouncedItems)
         
         viewModel
@@ -78,8 +78,8 @@ final class HomeViewController: BaseViewController {
     private func handleScrollOffset(_ offset: CGPoint) {
         if abs(offset.y) == 0 {
             Task { await viewModel.onViewEvent(.autoconnect) }
-        } else if abs(offset.y) > 10 {
-            Task { await viewModel.onViewEvent(.disconnectsWithAutoRestore) }
+        } else if offset.y < -10 {
+            Task { await viewModel.onViewEvent(.endConnectionWithAutoRestore) }
         }
     }
     

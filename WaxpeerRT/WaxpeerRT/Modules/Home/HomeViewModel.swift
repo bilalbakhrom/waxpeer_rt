@@ -14,20 +14,24 @@ final class HomeViewModel: BaseViewModel {
     @Published var debouncedItems: [GameItem] = []
     @Published var isConnected: Bool = false
     @Published var scrollOffset: CGPoint = .zero
-    @Published var isAutoConnectedEnabled: Bool = false
+    @Published var isAutoConnectEnabled: Bool = false
     
     private let coordinator: HomeCoordinator
     private let socketManager: WaxpeerSocketManager
     private let semaphore = DispatchSemaphore(value: 1)
     private var itemPublisherSubject = PassthroughSubject<[GameItem], Never>()
+    private var scrollToTopPublisherSubject = PassthroughSubject<Void, Never>()
     
     private var items: [GameItem] = [] {
         didSet { itemPublisherSubject.send(items) }
     }
     
     var itemPublisher: AnyPublisher<[GameItem], Never> {
-        itemPublisherSubject
-            .eraseToAnyPublisher()
+        itemPublisherSubject.eraseToAnyPublisher()
+    }
+    
+    var scrollToTopPublisher: AnyPublisher<Void, Never> {
+        scrollToTopPublisherSubject.eraseToAnyPublisher()
     }
     
     init(coordinator: HomeCoordinator) {
@@ -44,9 +48,10 @@ final class HomeViewModel: BaseViewModel {
 extension HomeViewModel {
     enum ViewEvent {
         case connect
-        case autoconnect
         case disconnect
-        case disconnectsWithAutoRestore
+        case autoconnect
+        case endConnectionWithAutoRestore
+        case scrollContentToTop
     }
 }
 
@@ -60,18 +65,23 @@ extension HomeViewModel {
             guard !isConnected else { return }
             socketManager.connect()
             
-        case .autoconnect:
-            guard isAutoConnectedEnabled else { return }
-            await onViewEvent(.connect)
-            
         case .disconnect:
             guard isConnected else { return }
-            isAutoConnectedEnabled = false
+            isAutoConnectEnabled = false
             socketManager.disconnect()
             
-        case .disconnectsWithAutoRestore:
-            isAutoConnectedEnabled = true
-            await onViewEvent(.disconnect)
+        case .autoconnect:
+            guard isAutoConnectEnabled else { return }
+            isAutoConnectEnabled = false
+            socketManager.connect()
+            
+        case .endConnectionWithAutoRestore:
+            guard isConnected else { return }
+            isAutoConnectEnabled = true
+            socketManager.disconnect()
+            
+        case .scrollContentToTop:
+            scrollToTopPublisherSubject.send()
         }
     }
 }

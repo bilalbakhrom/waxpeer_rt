@@ -19,6 +19,10 @@ struct HomeView: View {
         ]
     }
     
+    private var canScrollToTop: Bool {
+        viewModel.scrollOffset.y < -20
+    }
+    
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
     }
@@ -46,19 +50,24 @@ struct HomeView: View {
     }
     
     private var content: some View {
-        AUIScrollViewWithOffset(scrollOffset: $viewModel.scrollOffset) {
-            LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(viewModel.debouncedItems) { item in
-                    GameItemView(item: item)
-                        .frame(height: 180)
-                        .id(item.id)
+        ScrollViewReader { proxy in
+            AUIScrollViewWithOffset(scrollOffset: $viewModel.scrollOffset) {
+                LazyVGrid(columns: columns, spacing: 12) {
+                    ForEach(viewModel.debouncedItems) { item in
+                        GameItemView(item: item)
+                            .frame(height: 180)
+                            .id(item.id)
+                    }
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 80)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 80)
+            .padding(.top, 12)
+            .animation(.linear(duration: 0.15), value: viewModel.debouncedItems)
+            .onReceive(viewModel.scrollToTopPublisher) { _ in
+                proxy.scrollTo(viewModel.debouncedItems.first?.id, anchor: .top)
+            }
         }
-        .padding(.top, 12)
-        .animation(.linear(duration: 0.15), value: viewModel.debouncedItems)
     }
     
     private var connectionButton: some View {
@@ -68,20 +77,42 @@ struct HomeView: View {
             HStack(spacing: .zero) {
                 Spacer()
                 
-                Button {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    Task { await viewModel.onViewEvent(viewModel.isConnected ? .disconnect : .connect) }
-                } label: {
-                    Image(systemName: "livephoto")
-                        .font(.system(size: 40))
+                VStack(spacing: 12) {
+                    if canScrollToTop {
+                        Button {
+                            Task { await viewModel.onViewEvent(.scrollContentToTop) }
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 28)
+                                    .fill(Color.gray)
+                                    .frame(width: 28, height: 28)
+                                
+                                Image(systemName: "arrow.up.circle.fill")
+                                    .font(.system(size: 28))
+                                    .foregroundStyle(Color.modulePrimaryLabel)
+                            }
+                            .frame(width: 28, height: 28)
+                        }
+                        .buttonStyle(.plain)
+                        .transition(.opacity.combined(with: .scale))
+                    }
+                    
+                    Button {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        Task { await viewModel.onViewEvent(viewModel.isConnected ? .disconnect : .connect) }
+                    } label: {
+                        Image(systemName: "livephoto")
+                            .font(.system(size: 40))
+                    }
+                    .frame(width: 48, height: 48)
+                    .buttonStyle(ConnectionButtonStyle(activeColor: .green, deactiveColor: .gray))
+                    .connected(viewModel.isConnected)
                 }
-                .frame(width: 48, height: 48)
-                .buttonStyle(ConnectionButtonStyle(activeColor: .green, deactiveColor: .gray))
-                .connected(viewModel.isConnected)
             }
         }
         .padding(16)
         .padding(.bottom, 44)
+        .animation(.easeInOut, value: viewModel.isAutoConnectEnabled)
     }
     
     private var gradientView: some View {
@@ -97,6 +128,7 @@ struct HomeView: View {
                 startPoint: .bottom,
                 endPoint: .top
             )
+            .ignoresSafeArea()
             .frame(height: 60)
         }
     }
