@@ -49,8 +49,8 @@ final class HomeViewController: BaseViewController {
     
     override func bind() {
         viewModel
-            .$items
-            .debounce(for: .seconds(0.45), scheduler: RunLoop.main)
+            .itemPublisher
+            .debounce(for: .seconds(0.001), scheduler: RunLoop.main)
             .assign(to: &viewModel.$debouncedItems)
         
         viewModel

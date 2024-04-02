@@ -24,10 +24,17 @@ struct GameItemView: View {
                         .resizable()
                         .frame(width: 24, height: 24)
                     
-                    Text(item.game.uppercased())
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundStyle(Color.modulePrimaryLabel)
-                        .opacity(0.9)
+                    HStack(spacing: 4) {
+                        Text(item.game.uppercased())
+                            .font(.system(size: 14, weight: .regular))
+                            .foregroundStyle(Color.modulePrimaryLabel)
+                            .opacity(0.9)
+                        
+                        Text(item.event.rawValue)
+                            .font(.system(size: 12, weight: .regular))
+                            .foregroundStyle(item.event == .new ? Color.red : Color.accentColor)
+                            .offset(y: -5)
+                    }
                 }
                 
                 Text(item.name)

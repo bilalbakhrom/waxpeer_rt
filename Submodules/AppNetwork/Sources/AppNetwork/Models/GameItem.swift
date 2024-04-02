@@ -16,6 +16,7 @@ public struct GameItem: Codable, Identifiable, Hashable {
     public let paintIndex: Int?
     public let selling: Bool?
     public let stickerNames: [String]?
+    public var event: WaxpeerGameItemEvent = .new
     
     public var iconName: String {
         if game.contains("csgo") {
@@ -39,6 +40,10 @@ public struct GameItem: Codable, Identifiable, Hashable {
         self.paintIndex = try container.decodeIfPresent(Int.self, forKey: .paintIndex)
         self.selling = try container.decodeIfPresent(Bool.self, forKey: .selling)
         self.stickerNames = try container.decodeIfPresent([String].self, forKey: .stickerNames)
+    }
+    
+    public mutating func updateEvent(_ event: WaxpeerGameItemEvent) {
+        self.event = event
     }
 
     enum CodingKeys: String, CodingKey {

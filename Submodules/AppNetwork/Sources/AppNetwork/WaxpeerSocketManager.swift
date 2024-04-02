@@ -104,7 +104,7 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
         addHandlers()
         itemEvents = events
         
-        events.forEach { event in
+        itemEvents.forEach { event in
             socket.on(event.rawValue) { [weak self] data, ack in
                 guard let self else { return }
                 Task { await self.handleItemEvent(event, data: data, ack: ack) }
@@ -144,7 +144,8 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     
     private func handleItemEvent(_ event: WaxpeerGameItemEvent, data: [Any], ack: SocketAckEmitter) async {
         do {
-            let item = try decode(GameItem.self, from: data)
+            var item = try decode(GameItem.self, from: data)
+            item.updateEvent(event)
             await delegate?.waxpeerSocket(self, didReceiveGameItem: item, event: event)
         } catch {
             print("[ERROR new] \(error)")

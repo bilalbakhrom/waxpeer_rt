@@ -54,6 +54,7 @@ struct HomeView: View {
             .padding(.horizontal, 16)
         }
         .padding(.top, 12)
+        .animation(.linear(duration: 0.15), value: viewModel.debouncedItems)
     }
     
     private var connectionButton: some View {

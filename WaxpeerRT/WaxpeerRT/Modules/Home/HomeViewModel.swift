@@ -8,15 +8,25 @@
 import Foundation
 import AppBaseController
 import AppNetwork
+import Combine
 
 final class HomeViewModel: BaseViewModel {
-    @Published var items: [GameItem] = []
     @Published var debouncedItems: [GameItem] = []
     @Published var isConnected: Bool = false
     
     private let coordinator: HomeCoordinator
     private let socketManager: WaxpeerSocketManager
     private let semaphore = DispatchSemaphore(value: 1)
+    private var itemPublisherSubject = PassthroughSubject<[GameItem], Never>()
+    
+    private var items: [GameItem] = [] {
+        didSet { itemPublisherSubject.send(items) }
+    }
+    
+    var itemPublisher: AnyPublisher<[GameItem], Never> {
+        itemPublisherSubject
+            .eraseToAnyPublisher()
+    }
     
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
@@ -75,7 +85,7 @@ extension HomeViewModel: WaxpeerSocketDelegate {
     }
     
     private func appendItem(_ item: GameItem) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
                         
             semaphore.wait()
@@ -85,7 +95,9 @@ extension HomeViewModel: WaxpeerSocketDelegate {
     }
     
     private func removeItem(_ item: GameItem) {
-        DispatchQueue.main.async { [weak self] in
+        guard let index = items.firstIndex(of: item), index < items.count else { return }
+                    
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
             guard let index = items.firstIndex(of: item), index < items.count else { return }
                         
@@ -96,12 +108,17 @@ extension HomeViewModel: WaxpeerSocketDelegate {
     }
     
     private func updateItem(_ item: GameItem) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
-            guard let index = items.firstIndex(of: item), index < items.count else { return }
-                        
+            
             semaphore.wait()
-            items[index] = item
+            
+            if let index = items.firstIndex(of: item), index < items.count {
+                items[index] = item
+            } else {
+                items.append(item)
+            }
+            
             semaphore.signal()
         }
     }
