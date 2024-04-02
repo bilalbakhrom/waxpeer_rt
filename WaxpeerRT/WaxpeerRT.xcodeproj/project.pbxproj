@@ -12,6 +12,7 @@
 		D5A326BE2BBB605700EB6979 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A326BD2BBB605700EB6979 /* Assets.xcassets */; };
 		D5A326C12BBB605700EB6979 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5A326BF2BBB605700EB6979 /* LaunchScreen.storyboard */; };
 		D5A326D22BBB62B700EB6979 /* AppNetwork in Resources */ = {isa = PBXBuildFile; fileRef = D5A326D12BBB62B700EB6979 /* AppNetwork */; };
+		D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = D5A326D42BBB6D5400EB6979 /* AppNetwork */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A326D52BBB6D5400EB6979 /* AppNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +43,7 @@
 				D5A326D02BBB62B700EB6979 /* Submodules */,
 				D5A326B32BBB605300EB6979 /* WaxpeerRT */,
 				D5A326B22BBB605300EB6979 /* Products */,
+				D5A326D32BBB6D5400EB6979 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +116,13 @@
 			path = ../Submodules;
 			sourceTree = "<group>";
 		};
+		D5A326D32BBB6D5400EB6979 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -130,6 +140,7 @@
 			);
 			name = WaxpeerRT;
 			packageProductDependencies = (
+				D5A326D42BBB6D5400EB6979 /* AppNetwork */,
 			);
 			productName = WaxpeerRT;
 			productReference = D5A326B12BBB605300EB6979 /* WaxpeerRT.app */;
@@ -339,7 +350,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Waxpeer;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -370,7 +380,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Waxpeer;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -410,6 +419,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D5A326D42BBB6D5400EB6979 /* AppNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppNetwork;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D5A326A92BBB605300EB6979 /* Project object */;
 }
