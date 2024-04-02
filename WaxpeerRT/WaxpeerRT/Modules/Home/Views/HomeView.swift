@@ -35,7 +35,10 @@ struct HomeView: View {
             }
             
             connectionButton
+            
+            gradientView
         }
+        .ignoresSafeArea(edges: .bottom)
     }
     
     private var placeholder: some View {
@@ -52,6 +55,7 @@ struct HomeView: View {
                 }
             }
             .padding(.horizontal, 16)
+            .padding(.bottom, 80)
         }
         .padding(.top, 12)
         .animation(.linear(duration: 0.15), value: viewModel.debouncedItems)
@@ -77,5 +81,23 @@ struct HomeView: View {
             }
         }
         .padding(16)
+        .padding(.bottom, 44)
+    }
+    
+    private var gradientView: some View {
+        VStack(spacing: .zero) {
+            Spacer()
+            
+            LinearGradient(
+                colors: [
+                    Color.modulePrimaryBackground,
+                    Color.modulePrimaryBackground.opacity(0.8),
+                    Color.clear
+                ],
+                startPoint: .bottom,
+                endPoint: .top
+            )
+            .frame(height: 60)
+        }
     }
 }

@@ -94,7 +94,7 @@ final class HomeViewController: BaseViewController {
             rootView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             rootView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             rootView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            rootView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            rootView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
