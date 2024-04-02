@@ -14,6 +14,7 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     private let socket: SocketIOClient
     private var itemEvents: [WaxpeerGameItemEvent]
     private var gameEvents: [WaxpeerGameEvent]
+    public private(set) var isConnected: Bool = false
     
     /// The delegate for receiving Waxpeer socket events.
     public weak var delegate: WaxpeerSocketDelegate?
@@ -57,10 +58,16 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     
     // MARK: - Events
     
+    private func subscribe() {
+        gameEvents.forEach { socket.emit("subscribe", ["name": $0.rawValue]) }
+    }
+    
     /// Subscribes to the specified game events.
     ///
     /// - Parameter events: The game events to subscribe to.
     public func subscribe(to events: [WaxpeerGameEvent]) {
+        guard isConnected else { return }
+        
         // Unsubscribe from old events.
         let eventsToUnsubscribe = gameEvents.filter { !events.contains($0) }
         unsubscribe(from: eventsToUnsubscribe)
@@ -79,6 +86,8 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     ///
     /// - Parameter events: The game events to unsubscribe from.
     public func unsubscribe(from events: [WaxpeerGameEvent]) {
+        guard isConnected else { return }
+        
         events.forEach { event in
             if let index = gameEvents.firstIndex(of: event) {
                 gameEvents.remove(at: index)
@@ -121,12 +130,14 @@ public final class WaxpeerSocketManager: WebSocketProtocol {
     // MARK: - Actions
     
     private func handleConnect(_ data: [Any], _ ack: SocketAckEmitter) async {
+        isConnected = true
         register(for: itemEvents)
-        subscribe(to: gameEvents)
+        subscribe()
         await delegate?.waxpeerSocketDidConnect(self)
     }
     
     private func handleDisconnect(_ data: [Any], _ ack: SocketAckEmitter) async {
+        isConnected = false
         await delegate?.waxpeerSocketDidDisconnect(self)
     }
     
