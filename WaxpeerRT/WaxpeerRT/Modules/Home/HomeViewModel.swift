@@ -15,11 +15,14 @@ final class HomeViewModel: BaseViewModel {
     @Published var isConnected: Bool = false
     @Published var scrollOffset: CGPoint = .zero
     @Published var isAutoConnectEnabled: Bool = false
-    @Published var status: SocketConnectionStatus = .notConnected
+    @Published var isNetworkReachable: Bool = true
     @Published var showsStatusChange: Bool = false
+    @Published var showsNoConnectionAlert: Bool = false
+    @Published var status: SocketConnectionStatus = .notConnected
     
     private let coordinator: HomeCoordinator
     private let socketManager: WaxpeerSocketManager
+    private let networkMonitor: NetworkReachabilityMonitor
     private let semaphore = DispatchSemaphore(value: 1)
     private var itemPublisherSubject = PassthroughSubject<[GameItem], Never>()
     private var scrollToTopPublisherSubject = PassthroughSubject<Void, Never>()
@@ -39,9 +42,12 @@ final class HomeViewModel: BaseViewModel {
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
         self.socketManager = coordinator.deps.socketManager
+        self.networkMonitor = coordinator.deps.networkMonitor
         super.init()
         
-        self.socketManager.delegate = self
+        socketManager.delegate = self
+        networkMonitor.delegate = self
+        networkMonitor.start()
     }
 }
 
@@ -54,6 +60,7 @@ extension HomeViewModel {
         case autoconnect
         case endConnectionWithAutoRestore
         case scrollContentToTop
+        case showNoConnection
     }
 }
 
@@ -64,31 +71,64 @@ extension HomeViewModel {
     func onViewEvent(_ event: ViewEvent) async {
         switch event {
         case .connect:
-            guard !isConnected else { return }
-            showsStatusChange = true
-            socketManager.connect()
+            handleConnect()
             
         case .disconnect:
-            guard isConnected else { return }
-            showsStatusChange = true
-            isAutoConnectEnabled = false
-            socketManager.disconnect()
+            handleDisconnect()
             
         case .autoconnect:
-            guard isAutoConnectEnabled else { return }
-            showsStatusChange = true
-            isAutoConnectEnabled = false
-            socketManager.connect()
+            handleAutoConnect()
             
         case .endConnectionWithAutoRestore:
-            guard isConnected else { return }
-            showsStatusChange = true
-            isAutoConnectEnabled = true
-            socketManager.disconnect()
+            handleEndConnection()
             
         case .scrollContentToTop:
             scrollToTopPublisherSubject.send()
+            
+        case .showNoConnection:
+            showsNoConnectionAlert = true
         }
+    }
+    
+    private func handleConnect() {
+        guard !isConnected else { return }
+        
+        if !isNetworkReachable {
+            showsNoConnectionAlert = true
+            return
+        }
+        
+        showsStatusChange = true
+        socketManager.connect()
+    }
+    
+    private func handleDisconnect() {
+        guard isConnected else { return }
+        
+        showsStatusChange = true
+        isAutoConnectEnabled = false
+        socketManager.disconnect()
+    }
+    
+    private func handleAutoConnect() {
+        guard isAutoConnectEnabled else { return }
+        
+        if !isNetworkReachable {
+            showsNoConnectionAlert = true
+            return
+        }
+        
+        showsStatusChange = true
+        isAutoConnectEnabled = false
+        socketManager.connect()
+    }
+    
+    private func handleEndConnection() {
+        guard isConnected else { return }
+        
+        showsStatusChange = true
+        isAutoConnectEnabled = true
+        socketManager.disconnect()
     }
 }
 
@@ -156,5 +196,13 @@ extension HomeViewModel: WaxpeerSocketDelegate {
             
             semaphore.signal()
         }
+    }
+}
+
+@MainActor
+extension HomeViewModel: NetworkReachabilityMonitorDelegate {
+    func networkReachabilityMonitorDidUpdateStatus(_ monitor: NetworkReachabilityMonitor, isReachable: Bool) async {
+        print("isReachable: \(isReachable)")
+        isNetworkReachable = isReachable
     }
 }

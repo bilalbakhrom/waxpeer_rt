@@ -71,6 +71,15 @@ final class HomeViewController: BaseViewController {
                 handleScrollOffset(scrollOffset)
             }
             .store(in: &subscriptions)
+        
+        viewModel
+            .$isNetworkReachable
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isReachable in
+                guard let self else { return }
+                Task { await self.handleConnectionStatus(isReachable) }
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: - Actions
@@ -81,6 +90,12 @@ final class HomeViewController: BaseViewController {
         } else if offset.y < -10 {
             Task { await viewModel.onViewEvent(.endConnectionWithAutoRestore) }
         }
+    }
+    
+    private func handleConnectionStatus(_ isReachable: Bool) async {
+        guard !isReachable else { return }
+        await viewModel.onViewEvent(.disconnect)
+        await viewModel.onViewEvent(.showNoConnection)
     }
     
     // MARK: - Layout
